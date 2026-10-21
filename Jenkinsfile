@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage("Liora Variables") {
+        stage("Liora Env Variables") {
             steps {
-                sh "printenv"
+                echo "The build id is ${env.BUILD_ID} or $BUILD_ID or ${BUILD_ID}"
             }
         }
     }
