@@ -1,10 +1,29 @@
 pipeline {
     agent any
 
+    environment {
+        SCHOOL = "liora"
+    }
+
     stages {
-        stage("Liora Env Variables") {
+        stage("Env Variables") {
+            environment {
+                NAME = "Liora"
+            }
+
             steps {
-                echo "The build id is ${env.BUILD_ID} or $BUILD_ID or ${BUILD_ID}"
+                echo "SCHOOL = ${env.SCHOOL}"
+                echo "NAME = ${env.NAME}"
+
+                script {
+                    env.TEST_VARIABLE = "some test value"
+                }
+
+                echo "TEST_VARIABLE = ${env.TEST_VARIABLE}"
+
+                withEnv(["ANOTHER_ENV_VAR=here is some value"]) {
+                    echo "ANOTHER_ENV_VAR = ${env.ANOTHER_ENV_VAR}"
+                }
             }
         }
     }
